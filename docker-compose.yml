@@ -1,0 +1,16 @@
+version: '2'
+services:
+  mongodb:
+    build: ./containers/mongodb/
+    ports:
+      - "27017:27017"
+
+  web:
+    build: ./containers/web/
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./containers/web/app:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
